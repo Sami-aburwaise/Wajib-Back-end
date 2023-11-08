@@ -1,8 +1,8 @@
-//  load moongose
-const moongose = require('moongose')
+//  load mongoose
+const mongoose = require('mongoose')
 
 //  create schema
-const UserSchema = moongose.Schema({
+const userSchema = mongoose.Schema({
   username: {
     type: String,
     required: true,
@@ -22,11 +22,12 @@ const UserSchema = moongose.Schema({
     required: true,
     minlength: [6, 'Weak Password']
   },
-  userType:{
-    default: 'student',
+  userType: {
+    type: String,
+    default: 'student'
   }
 })
 
 //export model
-const User = moongose.model('User', UserSchema)
-module.exports = {User}
+const User = mongoose.model('User', userSchema)
+module.exports = { User }
