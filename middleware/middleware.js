@@ -19,12 +19,12 @@ exports.verifyToken = (req, res, next) => {
       return next()
     }
     res.send({
-      statues: 'error',
-      msg: 'Unauthorized'
+      status: 'login',
+      msg: ''
     })
   } catch {
     res.status(403).send({
-      statues: 'error',
+      status: 'error',
       msg: 'couldnt authorize'
     })
   }
@@ -39,13 +39,13 @@ exports.stripToken = (req, res, next) => {
       return next()
     }
     res.send({
-      statues: 'error',
-      msg: 'Unauthorized'
+      status: 'login',
+      msg: ''
     })
   } catch {
     res.send({
-      statues: 'error',
-      msg: 'Unauthorized'
+      status: 'login',
+      msg: ''
     })
   }
 }

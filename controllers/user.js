@@ -14,13 +14,13 @@ exports.user_signup_post = (req, res) => {
     .save()
     .then(() => {
       res.send({
-        statues: 'ok',
+        status: 'ok',
         msg: 'signed up successful'
       })
     })
     .catch((err) => {
       res.send({
-        statues: 'error',
+        status: 'error',
         msg: 'error, couldnt signup'
       })
     })
@@ -45,14 +45,14 @@ exports.user_login_post = async (req, res) => {
         res.send({ user: payload, token })
       } else {
         res.send({
-          statues: 'error',
+          status: 'error',
           msg: 'Incorrect password'
         })
       }
     })
     .catch((err) => {
       res.send({
-        statues: 'error',
+        status: 'error',
         msg: 'something went wrong'
       })
     })
@@ -69,7 +69,7 @@ exports.user_show_get = (req, res) => {
     })
     .catch((err) => {
       res.send({
-        statues: 'error',
+        status: 'error',
         msg: 'error, try again later'
       })
     })
@@ -99,19 +99,19 @@ exports.user_update_post = async (req, res) => {
           .updateOne(newInfo)
           .then(() => {
             res.send({
-              statues: 'ok',
+              status: 'ok',
               msg: 'account updated'
             })
           })
           .catch((err) => {
             res.send({
-              statues: 'error',
+              status: 'error',
               msg: 'update failed'
             })
           })
       } else {
         res.send({
-          statues: 'error',
+          status: 'error',
           msg: 'Incorrect password'
         })
       }
@@ -119,7 +119,7 @@ exports.user_update_post = async (req, res) => {
     .catch((err) => {
       console.log(err)
       res.send({
-        statues: 'error',
+        status: 'error',
         msg: 'Unauthorized'
       })
     })
