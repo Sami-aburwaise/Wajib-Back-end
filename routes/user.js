@@ -1,5 +1,6 @@
 //  load packages
 const express = require('express')
+const middleware = require('../middleware/middleware')
 
 //  invoke express router functionality
 const router = express.Router()
@@ -10,7 +11,18 @@ const userCtrl = require('../controllers/user')
 //  routers
 router.post('/signup', userCtrl.user_signup_post)
 router.post('/login', userCtrl.user_login_post)
-router.post('/edit', userCtrl.user_signup_post)
+router.get(
+  '/profile',
+  middleware.stripToken,
+  middleware.verifyToken,
+  userCtrl.user_show_get
+)
+router.post(
+  '/update',
+  middleware.stripToken,
+  middleware.verifyToken,
+  userCtrl.user_update_post
+)
 
 //  expoert router to server
 module.exports = router
