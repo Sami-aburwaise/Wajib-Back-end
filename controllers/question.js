@@ -24,8 +24,19 @@ exports.question_create_post = async (req, res) => {
       })
     })
 }
-//  index
-exports.question_index_get = (req, res) => {}
+//  search
+exports.question_search_get = (req, res) => {
+  Question.find({
+    question: { $regex: req.query.search_query, $options: 'i' },
+    subject: { $regex: req.query.subject, $options: 'i' }
+  })
+    .then((question) => {
+      res.send(question)
+    })
+    .catch((err) => {
+      console.log(err)
+    })
+}
 
 //  show
 exports.question_show_get = (req, res) => {

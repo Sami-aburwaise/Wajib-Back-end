@@ -9,6 +9,13 @@ const router = express.Router()
 const questionCtrl = require('../controllers/question')
 
 //  routers
+router.get(
+  '/search',
+  middleware.stripToken,
+  middleware.verifyToken,
+  questionCtrl.question_search_get
+)
+
 router.post(
   '/create',
   middleware.stripToken,
