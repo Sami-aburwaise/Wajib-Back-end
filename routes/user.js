@@ -23,6 +23,12 @@ router.post(
   middleware.verifyToken,
   userCtrl.user_update_post
 )
+router.get(
+  '/session',
+  middleware.stripToken,
+  middleware.verifyToken,
+  userCtrl.checkSession
+)
 
 //  expoert router to server
 module.exports = router
