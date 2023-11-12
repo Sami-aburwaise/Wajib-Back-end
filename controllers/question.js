@@ -13,7 +13,8 @@ exports.question_create_post = async (req, res) => {
     .then(() => {
       res.send({
         status: 'ok',
-        msg: 'question posted'
+        msg: 'question posted',
+        question: question
       })
     })
     .catch((err) => {
@@ -27,9 +28,9 @@ exports.question_create_post = async (req, res) => {
 //  search
 exports.question_search_get = (req, res) => {
   Question.find({
-    question: { $regex: req.query.search_query, $options: 'i' },
-    subject: { $regex: req.query.subject, $options: 'i' }
+    question: { $regex: req.query.search_query, $options: 'i' }
   })
+    .populate('user', '-password -email')
     .then((question) => {
       res.send(question)
     })
@@ -41,7 +42,7 @@ exports.question_search_get = (req, res) => {
 //  show
 exports.question_show_get = (req, res) => {
   Question.findById(req.params.id)
-    .populate('user')
+    .populate('user', 'username')
     .populate({ path: 'answer', populate: { path: 'user' } })
     .then(async (question) => {
       let comments = await Comment.find({ question: req.params.id }).populate(
@@ -90,7 +91,7 @@ exports.question_delete_get = async (req, res) => {
   let question = await Question.findById(req.params.id)
   if (question.user == req.userId) {
     question
-      .deleteOne(req.body)
+      .deleteOne()
       .then(() => {
         res.send({
           status: 'ok',

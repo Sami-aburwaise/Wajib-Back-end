@@ -124,3 +124,8 @@ exports.user_update_post = async (req, res) => {
       })
     })
 }
+
+exports.checkSession = async (req, res) => {
+  const { payload } = res.locals
+  res.send(payload)
+}
