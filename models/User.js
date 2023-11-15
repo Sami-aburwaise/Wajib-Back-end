@@ -22,9 +22,13 @@ const userSchema = mongoose.Schema({
     required: true,
     minlength: [6, 'Weak Password']
   },
-  userType: {
-    type: String,
-    default: 'student'
+  isAdmin: {
+    type: Boolean,
+    default: false
+  },
+  canAnswer: {
+    type: Boolean,
+    default: false
   }
 })
 

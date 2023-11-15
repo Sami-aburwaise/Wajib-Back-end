@@ -19,11 +19,13 @@ app.use(express.json())
 const userRouter = require('./routes/user')
 const questionRouter = require('./routes/question')
 const answerRouter = require('./routes/answer')
+const commentRouter = require('./routes/comment')
 
 //  use routes
 app.use('/user', userRouter)
 app.use('/question', questionRouter)
 app.use('/answer', answerRouter)
+app.use('/comment', commentRouter)
 
 //  listen to port
 const PORT = process.env.PORT

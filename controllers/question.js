@@ -43,12 +43,16 @@ exports.question_search_get = (req, res) => {
 exports.question_show_get = (req, res) => {
   Question.findById(req.params.id)
     .populate('user', 'username')
-    .populate({ path: 'answer', populate: { path: 'user' } })
+    .populate({
+      path: 'answer',
+      populate: { path: 'user', select: 'username' }
+    })
     .then(async (question) => {
       let comments = await Comment.find({ question: req.params.id }).populate(
-        'user'
+        'user',
+        'username'
       )
-      res.send({ ...question, comments })
+      res.send({ question, comments })
     })
     .catch((err) => {
       console.log(err)
