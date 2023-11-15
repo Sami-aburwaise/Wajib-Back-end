@@ -6,7 +6,14 @@ const { Comment } = require('../models/Comment')
 
 //  create
 exports.question_create_post = async (req, res) => {
-  let question = await Question(req.body)
+  const recivedSubject = await req.body.subject
+  const recivedQuestion = await req.body.question
+  const imageName = await req.file.filename
+  let question = await Question({
+    subject: recivedSubject,
+    question: recivedQuestion,
+    image: imageName
+  })
   question.user = req.userId
   question
     .save()

@@ -31,5 +31,12 @@ router.get(
   answerCtrl.answer_delete_get
 )
 
+router.get(
+  '/report/:id',
+  middleware.stripToken,
+  middleware.verifyToken,
+  answerCtrl.answer_report_post
+)
+
 //  expoert router to server
 module.exports = router
