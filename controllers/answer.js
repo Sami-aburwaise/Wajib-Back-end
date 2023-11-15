@@ -112,3 +112,24 @@ exports.answer_delete_get = (req, res) => {
       })
     })
 }
+
+//  report
+exports.answer_report_post = async (req, res) => {
+  let answer = await Answer.findById(req.params.id)
+  answer
+    .updateOne({ status: 'reported' })
+    .then((answer) => {
+      res.send({
+        status: 'ok',
+        msg: 'answer updated',
+        answer: answer
+      })
+    })
+    .catch((err) => {
+      console.log(err)
+      res.send({
+        status: 'error',
+        msg: 'couldnt report answer'
+      })
+    })
+}
