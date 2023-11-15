@@ -2,6 +2,7 @@
 const { User } = require('../models/User')
 const bcrypt = require('bcrypt')
 const middleware = require('../middleware/middleware')
+const { Question } = require('../models/Question')
 require('dotenv').config()
 const SALT = parseInt(process.env.SALT)
 
@@ -39,7 +40,9 @@ exports.user_login_post = async (req, res) => {
       if (passwordMatched) {
         let payload = {
           id: user.id,
-          username: user.username
+          username: user.username,
+          admin: user.isAdmin,
+          canAnswer: user.canAnswer
         }
         let token = middleware.createToken(payload)
         res.send({ user: payload, token })
@@ -61,11 +64,22 @@ exports.user_login_post = async (req, res) => {
 exports.user_show_get = (req, res) => {
   User.findById(req.userId)
     .then((user) => {
-      res.send({
-        id: user.id,
-        username: user.username,
-        email: user.email
-      })
+      Question.find({ user: req.userId })
+        .then((questions) => {
+          res.send({
+            id: user.id,
+            username: user.username,
+            email: user.email,
+            questions: questions
+          })
+        })
+        .catch(() => {
+          res.send({
+            id: user.id,
+            username: user.username,
+            email: user.email
+          })
+        })
     })
     .catch((err) => {
       res.send({

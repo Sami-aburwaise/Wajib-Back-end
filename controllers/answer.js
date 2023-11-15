@@ -44,7 +44,8 @@ exports.answer_update_post = async (req, res) => {
       .then(() => {
         res.send({
           status: 'ok',
-          msg: 'answer updated'
+          msg: 'answer updated',
+          answer: answer
         })
       })
       .catch((err) => {
@@ -75,22 +76,11 @@ exports.answer_delete_get = (req, res) => {
               { answer: new ObjectId(answer._id) },
               { answer: null }
             )
-              .then((question) => {
-                question
-                  .updateOne()
-                  .then(() => {
-                    res.send({
-                      status: 'ok',
-                      msg: 'answer deleted'
-                    })
-                  })
-                  .catch((err) => {
-                    console.log(err)
-                    res.send({
-                      status: 'error',
-                      msg: 'couldnt find question'
-                    })
-                  })
+              .then(() => {
+                res.send({
+                  status: 'ok',
+                  msg: 'answer deleted'
+                })
               })
               .catch((err) => {
                 console.log(err)
