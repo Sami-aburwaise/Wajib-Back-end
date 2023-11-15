@@ -15,6 +15,9 @@ app.use(logger('dev'))
 app.use(express.urlencoded({ extended: true }))
 app.use(express.json())
 
+//  share public file
+app.use(express.static('public'))
+
 //  import routes
 const userRouter = require('./routes/user')
 const questionRouter = require('./routes/question')
