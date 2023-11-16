@@ -54,11 +54,15 @@ exports.question_show_get = (req, res) => {
       path: 'answer',
       populate: { path: 'user', select: 'username' }
     })
+
     .then(async (question) => {
       let comments = await Comment.find({ question: req.params.id }).populate(
         'user',
         'username'
       )
+
+      comments = comments.reverse()
+
       res.send({ question, comments })
     })
     .catch((err) => {

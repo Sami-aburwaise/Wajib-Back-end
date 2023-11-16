@@ -70,7 +70,7 @@ exports.user_show_get = (req, res) => {
             id: user.id,
             username: user.username,
             email: user.email,
-            questions: questions
+            questions: questions.reverse()
           })
         })
         .catch(() => {
