@@ -67,7 +67,7 @@ exports.user_show_get = (req, res) => {
       Question.find({ user: req.userId })
         .then((questions) => {
           res.send({
-            id: user.id,
+            id: user._id,
             username: user.username,
             email: user.email,
             questions: questions.reverse()
@@ -75,7 +75,7 @@ exports.user_show_get = (req, res) => {
         })
         .catch(() => {
           res.send({
-            id: user.id,
+            id: user._id,
             username: user.username,
             email: user.email
           })
